@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>详情页</title>
+</head>
+<body>
+    {{goodone.title}}
+    {{goodone.price}}
+    {{goodone.desc}}
+    <img src="{%static goodone.picture%}">
+    <a href="{{goodone.get_adcart_url}}">加入购物车1</a><br>
+    <a onclick="addcart({{goodone.id}})">加入购物车2</a>
+<script src="{%static 'js/jquery-1.11.3.js'%}"></script>
+<script>
+    function addcart(goodid) {
+        $.ajax({
+            url:'/cartinfo/addcart/',
+            type:'get',
+            datatype:'json',
+            data:{
+                'goodid':goodid,
+                'gcount':1,
+            },
+            success:function (data) {
+                location.href="{%url 'cart'%}"
+            },
+            error:function (error) {
+                console.log(error);
+            }
+        })
+
+    }
+</script>
+
+</body>
+</html>
